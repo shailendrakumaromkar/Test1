@@ -5453,6 +5453,12 @@
       "links": {},
       "address": "0x9C4Cd36EE8aB89691b5bC42CFE7b0dBc22907c7A",
       "transactionHash": "0x82f75cde6e0803f0a138598f9b8b3c7a32f7af52e77267ca06d29572e8d36062"
+    },
+    "42": {
+      "events": {},
+      "links": {},
+      "address": "0x84df4cb004fc0fc8e5b96c6b28094354112ccf78",
+      "transactionHash": "0xb24fa89172ccb6a0b6d1e2144defbc671408bc394914204bfb9605a07b7f83c7"
     }
   },
   "schemaVersion": "3.0.2",
