@@ -1,4 +1,4 @@
-import { AssertionError } from "assert"
+ { AssertionError } from "assert"
 
 require('chai')
 .use(require('chai-as-promised'))
