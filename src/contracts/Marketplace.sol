@@ -1,10 +1,17 @@
-pragma solidity ^0.5.0;
+pragma solidity 0.5.0;
 
-
+/// @title Marketplace
+/// @author Shailendra Kumar Omkar
+/// @notice You can use this contract for creating & purchasing Products
+/// @dev All function calls are currently implemented without side effects
 contract Marketplace {
-    string public name;
+
+  /// @notice It keeps the counter track of Product which are added
+  /// @dev Initializing with zero
     uint public productCount=0;
 
+  /// Create a struct named Product.
+  /// It contain Product details -  id, name, price, owner, purchased
     struct Product{
         uint id;
         string name;
@@ -13,8 +20,14 @@ contract Marketplace {
         bool purchased;
     }
 
+
+  /// Create a Public mapping that maps ProductCount (a number) to an Product (struct)
+
     mapping(uint => Product) public products;
 
+  /// @notice Create event ProductCreated for EVM logging
+  /// @dev This event will be emitted when a new Product has been created
+ 
     event ProductCreated(
         uint id,
         string name,
@@ -23,6 +36,8 @@ contract Marketplace {
         bool purchased
     );
 
+  /// @notice Create event ProductPurchased for EVM logging
+  /// @dev This event will be emitted when a Product has been purchased
 
 event ProductPurchased(
         uint id,
@@ -31,14 +46,20 @@ event ProductPurchased(
         address payable owner,
         bool purchased
     );
-    constructor() public {
-        name="Omkar DApp";
-    }
 
+  ///@notice Defining a constrcutor
+    constructor() public {}
+    
+
+  /// @notice Creating a Product
+  /// @dev It will validate Product Name length & Product Price value
+ /// @param _name Product Name  _price Product Price
+  /// @return ProductCount
+  ///         Emit ProductCreated event with associated parameter
     function createProduct(string memory _name, uint _price) public {
       
-        require(bytes(_name).length>0);
-        require(_price >0);
+        require(bytes(_name).length>0 ,"Product Name should be a valid name of length greater than zero");
+        require(_price >0,"Product Price must be greater than zero");
 
         productCount++;
         products[productCount] = Product(productCount,_name,_price, msg.sender,false);
@@ -47,10 +68,15 @@ event ProductPurchased(
         
     }
 
+   /// @notice Purchasing a Product
+   /// @dev It will check for valid Product Id, 
+   ///      Product Price to purchase
+   ///      Product is not already purchased
+   ///      Buyer is not same as seller
+   /// @param _id product ID
+   /// @return Transfer the owneership to Buyer & amount to seller
+   ///         Emit ProductPurchased event with associated parameter
     function purchaseProduct(uint _id) public payable{
-
-    //fetch owner, product, valid product,purchase, event trigger
-
     Product memory _product = products[_id];
 
     address payable seller = _product.owner;
@@ -69,6 +95,4 @@ event ProductPurchased(
 
     emit ProductPurchased(_id,_product.name,_product.price,msg.sender,true);
     }
-
-    
 }

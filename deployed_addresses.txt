@@ -1,0 +1,2 @@
+Testnet : Kovan Test Network(ID#42)
+Address: "0x84df4cb004fc0fc8e5b96c6b28094354112ccf78"
